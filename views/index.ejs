@@ -3,35 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shrinker</title>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Document</title>
+    <style>
+         body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .form-inline input[type="url"] {
+            width: 70%;
+        }
+        .label-input {
+              margin-right: 0px;
+        }
+        .btn {
+            margin-left: -8px;
+            border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+
+        }
+        .input-container{
+               margin-right: 0px;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+              
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-    <h1>URL Shrinker</h1>
-    <form action="/shortUrls" method="POST" class="my-4 form-inline">
-        <label for="fullUrl" class="sr-only">Url</label>
-        <input required placeholder="Url" type="url" name="fullUrl" id="fullUrl" class='form-control col mr-2'>
-        <button class='btn btn-success' type="submit">Shrink</button>
-    </form>
-    <table class="table table-striped table-responsive">
-        <thead>
-            <tr>
-                <th>Full URL</th>
-                <th>Short URL</th>
-                <th>Clicks</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% shortUrls.forEach(shortUrl =>{%>
-            <tr>
-                <td><a href="<%=shortUrl.full%>"><%=shortUrl.full%></a></td>
-                <td><a href="<%=shortUrl.short%>"> <%=shortUrl.short%></a></td>
-                <td><%=shortUrl.clicks%></td>
-            </tr>
-            <%})%>
-        </tbody>
-    </table>
+        <h1 class="text-center mb-4">URL Shrinker</h1>
+        <!-- Form to submit full URL -->
+        <form action="/shortUrls" method="POST" class="form-inline  justify-content-center  mb-4">
+            <div class="label-input form-group ">
+                <label for="fullUrl" class="sr-only">URL</label>
+                <input required placeholder="Enter URL" type="url" name="fullUrl" id="fullUrl" class="input-container form-control col mr-2">
+            </div>
+            <button class=" btn btn-success" type="submit">Shrink</button>
+        </form>
+        <!-- Table to display shortened URLs -->
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Full URL</th>
+                        <th>Short URL</th>
+                        <th>Clicks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% shortUrls.forEach(shortUrl => { %>
+                    <tr>
+                        <td><a href="<%= shortUrl.full %>"><%= shortUrl.full %></a></td>
+                        <td><a href="<%= shortUrl.short %>"><%= shortUrl.short %></a></td>
+                        <td><%= shortUrl.clicks %></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>
